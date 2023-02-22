@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "75455560d557ee50070aa5d28e7833f1c42492a58481da063f804e90b0a9d3a0"
+            "sha256": "cac2b244b3d572b2ae5d07d4a44be732df0d6cef2b42dcb278e5857ef5f2f884"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -135,10 +135,10 @@
         },
         "flywheel-sdk": {
             "hashes": [
-                "sha256:37de5f549d515447708c434b7d2571ff77b779933dbe3557c466f8cfe5e94de9"
+                "sha256:ff6a85a20f76a7ad184b98c9f7bf5f416e5e6eb3f7e3872b01996b7a000f38cc"
             ],
             "index": "pypi",
-            "version": "==15.8.0"
+            "version": "==16.16.0"
         },
         "idna": {
             "hashes": [
@@ -219,6 +219,14 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==0.6.1"
+        },
+        "packaging": {
+            "hashes": [
+                "sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2",
+                "sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==23.0"
         },
         "pycodestyle": {
             "hashes": [
