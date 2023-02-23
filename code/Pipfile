@@ -4,13 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flywheel-sdk = "==15.5.0"
-jinja2 = "*"
-flake8 = "*"
-flake8-colors = "*"
-pyyaml = "*"
-pydantic = "*"
-typing-extensions = "*"
+flywheel-sdk = ">=16.12"
+jinja2 = "==3.0.1"
+flake8 = "==3.9.2"
+flake8-colors = "==0.1.9"
+pyyaml = "==5.4.1"
+pydantic = "==1.8.2"
+typing-extensions = "==3.10.0.0"
 
 [dev-packages]
 
