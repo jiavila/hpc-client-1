@@ -7,13 +7,13 @@ class ConfigFileCast(BaseModel):
 	Represents cast.yml cast settings
 	"""
 
-	cluster:   str
-	dry_run:   bool
-	slurm_ram:	str
-	slurm_cpu:	str
+	cluster: str
+	dry_run: bool
+	slurm_ram: str
+	slurm_cpu: str
 
-	admin_contact_email:  str
-	group_whitelist:      bool
+	admin_contact_email: str
+	group_whitelist: bool
 
 	cast_on_tag: bool
 	cast_gear_whitelist: List[str] = Field(default_factory=list)
@@ -22,13 +22,14 @@ class ConfigFileCast(BaseModel):
 	show_script_template_result: bool
 	show_commnd_template_result: bool
 
-	command:              Optional[List[str]]
+	command: Optional[List[str]]
 	command_script_stdin: Optional[bool]
 
-	script:               Optional[str]
-	script_executable:    Optional[bool]
+	script: Optional[str]
+	script_executable: Optional[bool]
 
 	use_hold_engine: bool
+
 
 class ConfigFile(BaseModel):
 	"""
