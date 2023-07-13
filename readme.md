@@ -47,7 +47,7 @@ singularity, it is recommended that you read--at a minimum--SingularityCE's [int
 
 5. If your queue type is not in the above table, or is sufficiently different, review the guide for [adding a queue type](doc/4-development-guide.md).
 
-6. Collaborate with Flywheel staff to [install an Engine binaries](doc/Flywheel%20HPC%20Client%20-%20engine%20configuration.pdf).
+6. Collaborate with Flywheel staff to [install the Flywheel engine in your HPC repo](doc/installing_flywheel_engine.md).
    They will also configure the hold engine on your Flywheel site
    to ensure that other engines do not pick up gear jobs that are tagged with "hpc".
 
@@ -58,6 +58,9 @@ singularity, it is recommended that you read--at a minimum--SingularityCE's [int
    that you test with MRIQC (non-BIDS version), a gear that's available from Flywheel's [Gear Exchange](https://flywheel.io/gear-exchange/).
    Note: as of 11 May 2022, Flywheel will have to change the rootfs-url (location of where the Docker image resides) for
    any gears installed from the Gear Exchange. For more about how Cast uses a rootfs-url, see Background/Motivation
-   of [this article](https://docs.flywheel.io/hc/en-us/articles/4607520806547-Using-pre-built-singularity-images-sif-with-your-HPC).
+   of [this article](https://docs.flywheel.io/hc/en-us/articles/4607520806547).
 
 8. Enjoy!
+
+## FAQs
+#### [How do I update my Flywheel engine?](doc/updating_flywheel_engine.md)
