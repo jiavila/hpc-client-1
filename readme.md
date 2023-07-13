@@ -42,7 +42,7 @@ This will make Cast much easier to manage.
 singularity, it is recommended that you read--at a minimum--SingularityCE's [introduction](https://sylabs.io/guides/latest/user-guide/introduction.html) <br/>
    and [quick start](https://sylabs.io/guides/latest/user-guide/quick_start.html) guides.
    
-4. [Create an authorization token](doc/Flywheel%20HPC%20Client%20-%20Singularity%20api%20key%20configuration.pdf) 
+4. [Create an authorization token](doc/singularity_remote_endpoint.md) 
    so Singularity and Flywheel can work with each other.
 
 5. If your queue type is not in the above table, or is sufficiently different, review the guide for [adding a queue type](doc/4-development-guide.md).
