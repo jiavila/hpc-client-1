@@ -49,9 +49,9 @@ class Lsf(Base):
 	def format_scheduler_ram_and_cpu_settings(
 		self, scheduler_ram: str, scheduler_cpu: str
 	) -> (str, str):
-		if scheduler_ram is None:
+		if not scheduler_ram:
 			scheduler_ram = 'rusage[mem=4000]'
-		if scheduler_cpu is None:
+		if not scheduler_cpu:
 			scheduler_cpu = '1'
 
 		# Force alphanum, with some extra chars for ram syntax

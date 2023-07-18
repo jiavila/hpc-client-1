@@ -41,9 +41,9 @@ class Sge(Base):
 	def format_scheduler_ram_and_cpu_settings(
 		self, scheduler_ram: str, scheduler_cpu: str
 	) -> (str, str):
-		if scheduler_ram is None:
+		if not scheduler_ram:
 			scheduler_ram = '4G'
-		if scheduler_cpu is None:
+		if not scheduler_cpu:
 			scheduler_cpu = '4-8'
 
 		# Force alphanum, with dashes for cpu range
