@@ -1,4 +1,4 @@
-from util import frame
+from src_code.util import frame
 
 from .base import Base
 from .lsf import Lsf
@@ -22,6 +22,23 @@ def run_cast(start, config, log):
 
 	elif config.cast.cluster == 'slurm':
 		Slurm(config, log).handle_all(start)
+
+	else:
+		frame.fatal('No such cluster type: ' + config.cast.cluster)
+
+
+def from_scheduler(config, log, scheduler_type: str):
+	if scheduler_type == 'base':
+		return Base(config, log)
+
+	elif scheduler_type == 'lsf':
+		return Lsf(config, log)
+
+	elif scheduler_type == 'sge':
+		return Sge(config, log)
+
+	elif scheduler_type == 'slurm':
+		return Slurm(config, log)
 
 	else:
 		frame.fatal('No such cluster type: ' + config.cast.cluster)

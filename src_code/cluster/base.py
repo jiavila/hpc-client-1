@@ -34,7 +34,9 @@ class Base(Common):
 		"""
 		Parse job settings out of a FW job object.
 
-		You will need to override this for cluster-specific config naming. This is also your opportunity to apply defaults for users who forget to specify the relevant options in their gear's manifest.
+		You will need to override this for cluster-specific config naming. This
+		is also your opportunity to apply defaults for users who forget to
+		specify the relevant options in their gear's manifest.
 
 		Important: Security-sensitive.
 		These values will be passed to command and script templating.
@@ -124,33 +126,33 @@ class Base(Common):
 
 		# If it doesn't, get these from the fw-cast/settings/cast.yml file.
 		cast = self.config.cast
-		if scheduler_ram is None:
+		if not scheduler_ram:  # assume it can be None or '' to handle cases where the gear doesn't and does have these properties
 			self.log.info(
 				"No `scheduler_ram` setting found in Flywheel gear job. Checking"
 				"`settings/cast.yml` file."
 			)
-			scheduler_ram = cast.get('scheduler_ram', None)
+			scheduler_ram = cast.scheduler_ram
 			self.log.debug(
 				"cast.yml scheduler_ram = '%s'" % scheduler_ram
 			)
-		if scheduler_cpu is None:
+		if not scheduler_cpu:
 			self.log.info(
 				"No `scheduler_cpu` setting found in Flywheel gear job. Checking"
 				"`settings/cast.yml` file."
 			)
-			scheduler_cpu = cast.get('scheduler_cpu', None)
+			scheduler_cpu = cast.scheduler_cpu
 			self.log.debug(
 				"cast.yml scheduler_cpu = '%s'" % scheduler_cpu
 			)
 
 		# Format the ram and cpu settings per scheduler type. If these are still
-		# 'None', the default level will be set by in the scheduler formatter.
-		if scheduler_ram is None:
+		# 'None' or '', the default level will be set by in the scheduler formatter.
+		if not scheduler_ram:
 			self.log.info(
 				"No `scheduler_ram` setting found in Flywheel gear job. Setting "
 				"to scheduler default."
 			)
-		if scheduler_cpu is None:
+		if not scheduler_cpu:
 			self.log.info(
 				"No `scheduler_cpu` setting found in Flywheel gear job. Setting "
 				"to scheduler default."
