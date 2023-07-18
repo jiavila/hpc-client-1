@@ -1,7 +1,7 @@
 import re
 
 from .base import Base
-from util import defn
+from src_code.util import defn
 
 
 class Slurm(Base):
@@ -26,12 +26,7 @@ class Slurm(Base):
 
 		s_debug, s_write = self.determine_singularity_settings(job)
 
-		ram = job.config.get('slurm-ram', '4G')
-		cpu = job.config.get('slurm-cpu', '1')
-
-		# Force string and alphanum
-		ram = re.sub(r'\W+', '', str(ram))
-		cpu = re.sub(r'\W+', '', str(cpu))
+		ram, cpu = self.determine_cpu_and_ram_settings(job=job)
 
 		return defn.JobSettings(
 			fw_id = str(job.id),
@@ -39,9 +34,21 @@ class Slurm(Base):
 			singularity_debug    = s_debug,
 			singularity_writable = s_write,
 
-			ram = ram,
-			cpu = cpu,
+			ram=ram,
+			cpu=cpu,
 		)
+
+	def format_scheduler_ram_and_cpu_settings(
+		self, scheduler_ram: str, scheduler_cpu: str
+	) -> (str, str):
+		if scheduler_ram is None:
+			scheduler_ram = '4G'
+		if scheduler_cpu is None:
+			scheduler_cpu = '1'
+		# Force string and alphanum
+		ram = re.sub(r'\W+', '', str(scheduler_ram))
+		cpu = re.sub(r'\W+', '', str(scheduler_cpu))
+		return ram, cpu
 
 
 SCRIPT_TEMPLATE = """#!/bin/bash

@@ -9,8 +9,8 @@ class ConfigFileCast(BaseModel):
 
 	cluster: str
 	dry_run: bool
-	slurm_ram: str
-	slurm_cpu: str
+	scheduler_ram: str
+	scheduler_cpu: str
 
 	admin_contact_email: str
 	group_whitelist: bool
@@ -83,8 +83,8 @@ class JobSettings(BaseModel):
 	singularity_writable: bool
 
 	# The meaning of the following values vary by cluster type.
-	ram:        Optional[str]
-	cpu:        Optional[str]
+	scheduler_ram:        Optional[str]
+	scheduler_cpu:        Optional[str]
 
 
 class ScriptTemplate(BaseModel):

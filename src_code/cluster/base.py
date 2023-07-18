@@ -1,7 +1,8 @@
 import inspect, os, subprocess, sys
 
-from util import defn, frame
+from src_code.util import defn, frame
 from .common import Common
+from abc import abstractmethod
 
 
 class Base(Common):
@@ -109,6 +110,64 @@ class Base(Common):
 
 		ms = str(frame.elapsed_ms(t))
 		self.log.debug('Casted job in ' + ms + ' ms.')
+
+	def determine_cpu_and_ram_settings(self, job) -> (str, str):
+		# check if the Flywheel gear job has any scheduler settings
+		self.log.info(
+			"Checking gear job for `scheduler_ram` and `scheduler_cpu` settings."
+		)
+		scheduler_ram = (job.config['config']).get('scheduler_ram')
+		scheduler_cpu = (job.config['config']).get('scheduler_cpu')
+		self.log.debug(
+			"Flywheel gear job scheduler_ram = '%s', scheduler_cpu = '%s'"
+		)
+
+		# If it doesn't, get these from the fw-cast/settings/cast.yml file.
+		cast = self.config.cast
+		if scheduler_ram is None:
+			self.log.info(
+				"No `scheduler_ram` setting found in Flywheel gear job. Checking"
+				"`settings/cast.yml` file."
+			)
+			scheduler_ram = cast.get('scheduler_ram', None)
+			self.log.debug(
+				"cast.yml scheduler_ram = '%s'" % scheduler_ram
+			)
+		if scheduler_cpu is None:
+			self.log.info(
+				"No `scheduler_cpu` setting found in Flywheel gear job. Checking"
+				"`settings/cast.yml` file."
+			)
+			scheduler_cpu = cast.get('scheduler_cpu', None)
+			self.log.debug(
+				"cast.yml scheduler_cpu = '%s'" % scheduler_cpu
+			)
+
+		# Format the ram and cpu settings per scheduler type. If these are still
+		# 'None', the default level will be set by in the scheduler formatter.
+		if scheduler_ram is None:
+			self.log.info(
+				"No `scheduler_ram` setting found in Flywheel gear job. Setting "
+				"to scheduler default."
+			)
+		if scheduler_cpu is None:
+			self.log.info(
+				"No `scheduler_cpu` setting found in Flywheel gear job. Setting "
+				"to scheduler default."
+			)
+		self.log.debug(
+			"scheduler_ram = '%s', scheduler_cpu = '%s' before formatting." %
+			(scheduler_ram, scheduler_cpu)
+		)
+		return self.format_scheduler_ram_and_cpu_settings(
+			scheduler_ram=scheduler_ram, scheduler_cpu=scheduler_cpu
+		)
+
+	@abstractmethod
+	def format_scheduler_ram_and_cpu_settings(
+		self, scheduler_ram: str, scheduler_cpu: str
+	) -> (str, str):
+		raise NotImplementedError
 
 
 SCRIPT_TEMPLATE = inspect.cleandoc("""#!/bin/bash

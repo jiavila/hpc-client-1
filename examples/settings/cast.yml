@@ -36,8 +36,8 @@ cast:
 
   # Settings for slurm cluster ram and cpu. Uncomment if you wish to set these for all
   # your slurm jobs.
-  # slurm_cpu: '4'
-  # slurm_ram: '12G'
+  # scheduler_ram: '4G'
+  # scheduler_cpu: '1'
 
   #
   # Depending on your cluster implementation,
