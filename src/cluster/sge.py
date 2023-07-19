@@ -1,7 +1,7 @@
 import re
 
 from .base import Base
-from ..util import defn
+from util import defn
 
 
 class Sge(Base):

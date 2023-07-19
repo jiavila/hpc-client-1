@@ -2,8 +2,8 @@ import os
 from copy import deepcopy
 import flywheel
 
-from src_code.util.frame import cmd_parser, prepare_config
-from src_code.util.defn import FlywheelJob
+from src.util.frame import cmd_parser, prepare_config
+from src.util.defn import FlywheelJob
 
 # -----------------------------------------------------------------------------
 # Setup the default job for testing
@@ -96,7 +96,7 @@ jobs.append(job_ram_cpu_defined_sge)
 # -----------------------------------------------------------------------------
 # Set up the config and log for the scheduler objects. All these are necessary
 # to instantiate a scheduler object (children of Base in
-# `src_code/cluster/base.py`
+# `src/cluster/base.py`
 # -----------------------------------------------------------------------------
 # set some env variables
 os.environ['SCITRAN_RUNTIME_HOST'] = 'latest.sse.flywheel.io'

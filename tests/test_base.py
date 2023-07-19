@@ -1,7 +1,7 @@
 import pytest
 
-from src_code import cluster
-from src_code.util.frame import log
+from src import cluster
+from src.util.frame import log
 from tests.assets.job_sample import jobs, config
 
 
@@ -12,7 +12,7 @@ from tests.assets.job_sample import jobs, config
             # Check slurm default ram and cpu settings from the formatting
             # method. Actually, this can't be tested if the cast.yml file has
             # the vars defined, so we have to rely on slurm tests for
-            # `src_code/cluster/slurm.format_scheduler_ram_and_cpu_settings()`
+            # `src/cluster/slurm.format_scheduler_ram_and_cpu_settings()`
             jobs[0],  # This job doesn't have any values
             "slurm",
             {
