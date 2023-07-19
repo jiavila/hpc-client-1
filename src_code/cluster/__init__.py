@@ -1,4 +1,4 @@
-from src_code.util import frame
+from ..util import frame
 
 from .base import Base
 from .lsf import Lsf

@@ -3,7 +3,7 @@ import copy, os, stat
 from jinja2 import Template
 import flywheel
 
-from src_code.util import defn, frame, net
+from ..util import defn, frame, net
 
 
 class Common:

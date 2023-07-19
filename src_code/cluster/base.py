@@ -1,6 +1,6 @@
 import inspect, os, subprocess, sys
 
-from src_code.util import defn, frame
+from ..util import defn, frame
 from .common import Common
 from abc import abstractmethod
 
