@@ -121,7 +121,8 @@ class Base(Common):
 		scheduler_ram = (job.config['config']).get('scheduler_ram')
 		scheduler_cpu = (job.config['config']).get('scheduler_cpu')
 		self.log.debug(
-			"Flywheel gear job scheduler_ram = '%s', scheduler_cpu = '%s'"
+			"Flywheel gear job scheduler_ram = '%s', scheduler_cpu = '%s'" %
+			(scheduler_ram, scheduler_cpu)
 		)
 
 		# If it doesn't, get these from the fw-cast/settings/cast.yml file.
