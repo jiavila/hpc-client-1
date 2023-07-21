@@ -34,7 +34,7 @@ class Lsf(Base):
 
 		s_debug, s_write = self.determine_singularity_settings(job)
 
-		ram, cpu = self.determine_cpu_and_ram_settings(job=job)
+		ram, cpu = self.determine_ram_and_cpu_settings(job=job)
 
 		return defn.JobSettings(
 			fw_id = str(job.id),

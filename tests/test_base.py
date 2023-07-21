@@ -72,7 +72,7 @@ from tests.assets.job_sample import jobs, config
     ]
 
 )
-def test_determine_cpu_and_ram_settings(test_job, scheduler_type, expected_values):
+def test_determine_ram_and_cpu_settings(test_job, scheduler_type, expected_values):
     """
 
     """
@@ -81,7 +81,7 @@ def test_determine_cpu_and_ram_settings(test_job, scheduler_type, expected_value
         log=log,
         scheduler_type=scheduler_type)
 
-    ram, cpu = scheduler.determine_cpu_and_ram_settings(test_job)
+    ram, cpu = scheduler.determine_ram_and_cpu_settings(test_job)
 
     assert ram == expected_values['ram']
     assert cpu == expected_values['cpu']

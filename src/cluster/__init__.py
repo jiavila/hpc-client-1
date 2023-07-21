@@ -28,6 +28,9 @@ def run_cast(start, config, log):
 
 
 def from_scheduler(config, log, scheduler_type: str):
+	"""
+	Acts as a factory method for instantiating a scheduler object.
+	"""
 	if scheduler_type == 'base':
 		return Base(config, log)
 
@@ -41,4 +44,4 @@ def from_scheduler(config, log, scheduler_type: str):
 		return Slurm(config, log)
 
 	else:
-		frame.fatal('No such cluster type: ' + config.cast.cluster)
+		frame.fatal('No such cluster/scheduler type: ' + config.cast.cluster)

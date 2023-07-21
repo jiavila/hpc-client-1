@@ -1,4 +1,5 @@
 import inspect, os, subprocess, sys
+import flywheel
 
 from util import defn, frame
 from .common import Common
@@ -113,58 +114,79 @@ class Base(Common):
 		ms = str(frame.elapsed_ms(t))
 		self.log.debug('Casted job in ' + ms + ' ms.')
 
-	def determine_cpu_and_ram_settings(self, job) -> (str, str):
-		# check if the Flywheel gear job has any scheduler settings
-		self.log.info(
-			"Checking gear job for `scheduler_ram` and `scheduler_cpu` settings."
-		)
-		scheduler_ram = (job.config['config']).get('scheduler_ram')
-		scheduler_cpu = (job.config['config']).get('scheduler_cpu')
-		self.log.debug(
-			"Flywheel gear job scheduler_ram = '%s', scheduler_cpu = '%s'" %
-			(scheduler_ram, scheduler_cpu)
-		)
+	def determine_ram_and_cpu_settings(self, job: flywheel.JobListEntry) -> (str, str):
+		"""
+		Returns the scheduler ram and cpu settings based on the type of
+		cluster/HPC scheduler.
 
-		# If it doesn't, get these from the fw-cast/settings/cast.yml file.
-		cast = self.config.cast
-		if not scheduler_ram:  # assume it can be None or '' to handle cases where the gear doesn't and does have these properties
+		Returns
+		-------
+		ram: str
+		cpu: str
+		"""
+		settings = {'scheduler_ram': '', 'scheduler_cpu': ''}
+		self._determine_scheduler_settings(job=job, settings=settings)
+		return self.format_scheduler_ram_and_cpu_settings(**settings)
+
+	def _determine_scheduler_settings(self, job: flywheel.JobListEntry, settings: dict):
+		"""
+		A template method for checking a scheduler setting(s). This should be
+		used in other methods that follow this logic:
+
+		1. Check if the setting is in the Flywheel gear config.
+		2. If not, check if the setting is in the `settings/cast.yml` file.
+		3. If not, then set it to default values, typically set by a concrete
+			cluster/scheduler object's formatting method.
+
+		As an example, see `Base.determine_ram_and_cpu_settings().
+
+		Args
+		----
+		job: flywheel.JobListEntry
+		settings: dict
+			Each key represents a scheduler/cluster setting that should be
+			checked in the processed described above. The default key should
+			be something that represents an empty object (e.g., '', or None).
+
+		Returns
+		-------
+		settings: dict
+		"""
+		for setting in settings:
+			# check if the Flywheel gear job has any scheduler settings
 			self.log.info(
-				"No `scheduler_ram` setting found in Flywheel gear job. Checking"
-				"`settings/cast.yml` file."
+				"Checking gear job for `%s` setting."
 			)
-			scheduler_ram = cast.scheduler_ram
-			self.log.debug(
-				"cast.yml scheduler_ram = '%s'" % scheduler_ram
-			)
-		if not scheduler_cpu:
+			settings[setting] = (job.config['config']).get(setting)
 			self.log.info(
-				"No `scheduler_cpu` setting found in Flywheel gear job. Checking"
-				"`settings/cast.yml` file."
-			)
-			scheduler_cpu = cast.scheduler_cpu
-			self.log.debug(
-				"cast.yml scheduler_cpu = '%s'" % scheduler_cpu
+				"Flywheel gear job `%s` = '%s'" % (setting, settings[setting])
 			)
 
-		# Format the ram and cpu settings per scheduler type. If these are still
-		# 'None' or '', the default level will be set by in the scheduler formatter.
-		if not scheduler_ram:
-			self.log.info(
-				"No `scheduler_ram` setting found in Flywheel gear job. Setting "
-				"to scheduler default."
+			# If it doesn't, get these from the fw-cast/settings/cast.yml file.
+			cast = self.config.cast
+			if not settings[setting]: # assume it can be None or '' to handle cases where the gear doesn't and does have these properties
+				self.log.info(
+					"No `%s` setting found in Flywheel gear job. Checking "
+					"`settings/cast.yml` file" % setting
+				)
+				settings[setting] = getattr(cast, setting)
+				self.log.info(
+					"cast.yml %s = '%s'" % (setting, settings[setting])
+				)
+
+			# If these are still 'None' or '', the default level will be set by
+			# the scheduler formatter.
+			if not settings[setting]:
+				self.log.info(
+					"No `%s` setting found in Flywheel cast.yml. Setting "
+					"to scheduler default." % setting
+				)
+
+			self.log.debug(
+				"%s = '%s' before formatting." %
+				(setting, settings[setting])
 			)
-		if not scheduler_cpu:
-			self.log.info(
-				"No `scheduler_cpu` setting found in Flywheel gear job. Setting "
-				"to scheduler default."
-			)
-		self.log.debug(
-			"scheduler_ram = '%s', scheduler_cpu = '%s' before formatting." %
-			(scheduler_ram, scheduler_cpu)
-		)
-		return self.format_scheduler_ram_and_cpu_settings(
-			scheduler_ram=scheduler_ram, scheduler_cpu=scheduler_cpu
-		)
+		return settings
 
 	@abstractmethod
 	def format_scheduler_ram_and_cpu_settings(
