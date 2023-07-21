@@ -5,7 +5,7 @@ set -x
 
 # This script prepares the python dependencies for the project.
 
-cd code
+cd src
 
 pip install --user pipenv
 

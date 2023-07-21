@@ -3,7 +3,7 @@
 The basic structure of the python program is as follows:
 
 ```
-code/
+src/
 ├── Pipfile            Package management
 ├── Pipfile.lock
 │

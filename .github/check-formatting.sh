@@ -5,6 +5,6 @@ set -x
 
 # This script checks the project for correct formatting.
 
-cd code
+cd src
 
 python -m flake8 --config .flake8 .

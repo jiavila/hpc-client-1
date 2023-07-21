@@ -8,7 +8,7 @@ You will need python 3, and how this is done may vary per cluster.<br/>
 For example, if your cluster has a `module` system, the command may be something like this:
 
 ```
-module load python/3
+module load python3
 ```
 
 You may also directly be able to install python with the following if you have root privileges:
@@ -25,22 +25,12 @@ Record any commands required, then check the command is healthy and in your path
 python3 --version
 ```
 
-#### Symlink python to python3
-
-To prevent calling python2 instead of python3, it is recommended that a symlink be created for the command 
-`python` so that any calls default to `python3`. To do so, simply install the package 
-`python-is-python3` with the following:
-
-```
-sudo apt install python-is-python3
-```
-
 ### Clone the Cast repo and set up a virtual environment
 
 Add pipenv, which isolates our script dependencies, to your homedir:
 
 ```
-python -m pip install pipenv
+python3 -m pip install pipenv
 ```
 
 Snag a copy of this repository:
@@ -58,8 +48,8 @@ cd fw-cast
 
 Set up the pipenv for the fw-cast project:
 ```
-cd code
-python -m pipenv install
+cd src
+python3 -m pipenv install
 cd ../
 ```
 
@@ -131,8 +121,10 @@ job and its associated log file. The job id will be the in the title of executab
 its `.txt` log file; they are stored in the directories `fw-cast/logs/generated` and <br/>
 `fw-cast/logs/queue`, respectively.  
 
-The executable job script is created from a `SCRIPT_TEMPLATE` (found in `fw-cast/code/cluster`), <br/>
-depending on the HPC's job scheduler/cluster type (e.g., slurm). The `start-cast.sh` file <br/>
+The executable job script is created from a `SCRIPT_TEMPLATE` (found in `fw-cast/src/cluster`), <br/>
+depending on the HPC's job scheduler/cluster type (e.g., slurm). If you need to customize
+it for your HPC, it is recommended that you change create your own template in 
+`settings/cast.yml` using the variable `script`. The `start-cast.sh` file <br/>
 logs this template in `fw-cast/logs/cast.log`. When troubleshooting an HPC gear, it is <br/>
 convenient to use the command `tail -60 fw-cast/logs/cast.log` to print out the last 60 lines from the <br/>
 log file, since this can get quite long.

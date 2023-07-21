@@ -1,9 +1,12 @@
 # Tracking your changes
 
 When using Cast in your environment, you may have to modify settings or code.<br/>
-Keeping this tracked in version control, outside the HPC, will save a lot of headaches later.
+As much as possible, try avoiding editing any source code so that your repository can <br/>
+be updated easily when a new version of Cast/HPC Client is released. Keeping this 
+repository tracked in version control, outside the HPC, will save a lot of headaches 
+later.
 
-Because this repository is open-source, the normal "fork" button won't do the job. <br/>
+Since this repository is open-source, the normal "fork" button won't do the job. <br/>
 This is very important if you choose to version your credentials, which is recommended.
 
 1. [Create a new GitHub repository](https://github.com/new). Set it to private.

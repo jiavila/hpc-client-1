@@ -5,7 +5,7 @@ set -x
 
 # This script uses pyinstaller to build a binary for environments that have trouble with python.
 
-cd code
+cd src
 
 pipenv install -d pyinstaller
 
