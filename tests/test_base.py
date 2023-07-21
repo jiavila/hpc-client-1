@@ -8,21 +8,21 @@ from tests.assets.job_sample import jobs, config
 @pytest.mark.parametrize(
     "test_job, scheduler_type, expected_values",
     [
-        (
+        #(
             # Check slurm default ram and cpu settings from the formatting
             # method. Actually, this can't be tested if the cast.yml file has
             # the vars defined, so we have to rely on slurm tests for
             # `src/cluster/slurm.format_scheduler_ram_and_cpu_settings()`
-            jobs[0],  # This job doesn't have any values
-            "slurm",
-            {
-                "ram": '8G',
-                "cpu": '8'
-            }
-        ),
+            # jobs[0],
+            # "slurm",
+        #    {
+        #        "ram": '8G',
+        #        "cpu": '8'
+        #    }
+        #),
         (  # Check slurm settings from the cast.yml file. the `settings` folder
             # has to exists (i.e., `./process/setup.sh` must be run)
-            jobs[0],
+            jobs[0], # This job doesn't have any values
             "slurm",
             {
                 "ram": '8G',
