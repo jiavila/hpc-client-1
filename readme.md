@@ -63,4 +63,5 @@ singularity, it is recommended that you read--at a minimum--SingularityCE's [int
 8. Enjoy!
 
 ## FAQs
-#### [How do I update my Flywheel engine?](doc/updating_flywheel_engine.md)
+#### [How do I update the HPC Client to the latest release?](doc/faq_updating_hpc_client.md)
+#### [How do I update my Flywheel engine?](doc/faq_updating_flywheel_engine.md)
