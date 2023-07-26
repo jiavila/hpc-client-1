@@ -2,7 +2,12 @@
 
 The HPC Client is a self-service solution that allows Flywheel jobs and gears to run on a High Performance Computing environment. Use on-premise hardware that's already available for highly-concurrent scientific workloads!
 
-**Project Status:** Prototype. You may run into some rough edges, and will need to work in tandem with Flywheel staff.
+### Table of Contents
+- [Architecture](#architecture)
+- [HPC Types](#hpc-types)
+- [Minimum Requirements](#minimum-requirements)
+- [Getting Started](#getting-started)
+- [FAQs](#faqs)
 
 [![Build Status](https://github.com/flywheel-io/hpc-client/actions/workflows/build.yml/badge.svg)](https://github.com/flywheel-io/hpc-client/actions)
 
@@ -24,12 +29,12 @@ provides support for Slurm. If you require assistance with other schedulers, con
 If your site uses one of these, it may well just need a config file to get running.<br/>
 Otherwise, some light python development will be required.
 
-## Minimum requirements
+## Minimum Requirements
 Reference [this article](https://docs.flywheel.io/hc/en-us/articles/7563372636563) for 
 the minimum software and computing requirements of the system where the HPC Client 
 will be installed.
 
-## Getting started
+## Getting Started
 
 1. Before using Cast, you need to decide how it will run on your cluster.<br/>
 [Choose an integration method](doc/1-choose-an-integration-method.md) and keep it in mind for later.
@@ -63,5 +68,6 @@ singularity, it is recommended that you read--at a minimum--SingularityCE's [int
 8. Enjoy!
 
 ## FAQs
-#### [How do I update the HPC Client to the latest release?](doc/faq_updating_hpc_client.md)
-#### [How do I update my Flywheel engine?](doc/faq_updating_flywheel_engine.md)
+- #### [How do I update the HPC Client to the latest release?](doc/faq_updating_hpc_client.md)
+- #### [How do I update my Flywheel engine?](doc/faq_updating_flywheel_engine.md)
+- #### How do I set ram and cpu settings for my job?
