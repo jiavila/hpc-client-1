@@ -1,7 +1,7 @@
 cast:
 
-  # Cluster type.
-  # For a list of valid values, see cluster/__init__.py.
+  # Cluster/Scheduler type.
+  # For a list of valid values, see src/cluster/__init__.py.
   cluster: 'slurm'
 
   # When set, scripts are still generated, but no HPC commands are run.
@@ -35,7 +35,14 @@ cast:
   use_hold_engine: true
 
   # Settings for slurm cluster ram and cpu. Uncomment if you wish to set these for all
-  # your slurm jobs.
+  # your slurm jobs. Settings these two varables as gear config parameters overrides these,
+  # so this allows these to be set for specific jobs. Use the examples in the
+  # table below as a guide to format the type of cluster/scheduler.
+  #    | scheduler/cluster  | RAM    | CPU    |
+  #    | -----------------  | ---    | ---    |
+  #    | Slurm              | '8G'   | '8'    |
+  #    | LSF                | 'rusage[mem=4000]' | '1' |
+  #    | SGE                | '8G' | '4-8'   (sets CPU range) |
   # scheduler_ram: '8G'
   # scheduler_cpu: '8'
 

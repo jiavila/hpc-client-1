@@ -70,4 +70,25 @@ singularity, it is recommended that you read--at a minimum--SingularityCE's [int
 ## FAQs
 - #### [How do I update the HPC Client to the latest release?](doc/faq_updating_hpc_client.md)
 - #### [How do I update my Flywheel engine?](doc/faq_updating_flywheel_engine.md)
-- #### How do I set ram and cpu settings for my job?
+<details>
+   <summary>How do I set ram and cpu settings for my job?</summary>
+   Starting in version 2.0.0, the HPC Client will perform the following checks for setting
+   ram and cpu settings:
+  
+   1. Was `scheduler_ram` or `scheduler_cpu` set in the gear config when the Flywheel
+      job was launched? If so, use this. The gear must have these as config
+      variables to set them. See table below for formatting.
+   2. If no setting was found for that specific job, check the `settings/cast.yml` file
+      for these variables. Setting this will apply to HPC jobs submitted by the HPC 
+      Client. Only step 1. overrides this.
+   3. If the setting is still not found, then use the default one set for that specific
+      scheduler type (e.g., Slurm). This is hardcoded and should not be changed.
+   
+      ### Formatting guide for variables 'scheduler_ram' and 'scheduler_cpu'
+      | scheduler/cluster  | RAM    | CPU    |
+      | -----------------  | ---    | ---    |
+      | Slurm              | '8G'   | '8'    |
+      | LSF                | 'rusage[mem=4000]' | '1' |
+      | SGE                | '8G' | '4-8'   (sets CPU range) |
+   
+</details>
