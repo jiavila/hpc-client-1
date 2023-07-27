@@ -37,7 +37,7 @@ cast:
   # Settings for slurm cluster ram and cpu. Uncomment if you wish to set these for all
   # your slurm jobs. Settings these two varables as gear config parameters overrides these,
   # so this allows these to be set for specific jobs. Use the examples in the
-  # table below as a guide to format the type of cluster/scheduler.
+  # table below to format for the type of cluster/scheduler.
   #    | scheduler/cluster  | RAM    | CPU    |
   #    | -----------------  | ---    | ---    |
   #    | Slurm              | '8G'   | '8'    |
