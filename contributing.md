@@ -27,10 +27,11 @@ below in the command line.
    ```
    . It should print something like the following: `/Users/<user>/.local/share/virtualenvs/src_code-LEKyUmPy/bin/python
     `
-6. Check that pytest was successfully installed by running pytest with 
+6. Check that pytest was successfully installed by running pytest with and install pre-commit
    ```
    cd ..
    pytest
+   pre-commit install
    ```
 
 ## Dependency management
@@ -78,12 +79,13 @@ or just be disabled.
 ## Adding a contribution
 
 Every contribution should be associated with a ticket on the GEAR JIRA board, or be a
-hotfix. You should contribute by creating a branch titled with either
-`hotfix-<hotfix_name` or `GEAR-<gear_num>-<description>`. For now, other branch names
-will be accepted, but soon branch names will be rejected if they don't follow this
-pattern.
+hotfix (for Flywheel internal development). You should contribute by creating a branch 
+titled with either `hotfix-<hotfix_name` or `GEAR-<gear_num>-<description>`. For now, 
+other branch names will be accepted, but soon branch names will be rejected if they 
+don't follow this pattern.
 
-When contributing, make a Merge Request against the main branch.
+After pushing local changes to your forked repo, you can create a pull request back to 
+the HPC Client repo through the github UI.
 
 ### Merge requests
 
@@ -102,7 +104,7 @@ expect and look for in the MR, and
 
 For example, if the cocde is currently on version `0.2.1` and you are working on a
 bugfix under the branch GEAR-999-my-bugfix. When you create a merge request against
-`main`, you should add a section to `docs/release_notes.md` such as the following:
+`main`, you should add a section to `doc/release_notes.md` such as the following:
 
 ```markdown
 ## 0.2.2
