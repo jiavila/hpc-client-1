@@ -43,8 +43,8 @@ cast:
   #    | Slurm              | '8G'   | '8'    |
   #    | LSF                | 'rusage[mem=4000]' | '1' |
   #    | SGE                | '8G' | '4-8'   (sets CPU range) |
-  # scheduler_ram: '8G'
-  # scheduler_cpu: '8'
+  scheduler_ram: '8G'
+  scheduler_cpu: '8'
 
   #
   # Depending on your cluster implementation,
@@ -71,18 +71,18 @@ cast:
 
   # A jinja2-templated string representing the script to generate.
   # See defn.ScriptTemplate for available values.
-  # script: |+
-  #   #!/bin/bash
-  #   #SBATCH --job-name=fw-{{job.fw_id}}
-  #   #SBATCH --ntasks=1
-  #   {%- if job.cpu -%}#SBATCH --cpus-per-task={{job.cpu}}{%- endif %}
-  #   {%- if job.ram -%}#SBATCH --mem-per-cpu={{job.ram}}{%- endif %}
-  #   #SBATCH --output {{script_log_path}}
-
-  #   set -euo pipefail
-
-  #   source "{{cast_path}}/settings/credentials.sh"
-  #   cd "{{engine_run_path}}"
-
-  #   set -x
-  #   srun ./engine run --single-job %JOB%
+  #script: |+
+  #  #!/bin/bash
+  #  #SBATCH --job-name=fw-{{job.fw_id}}
+  #  #SBATCH --ntasks=1
+  #  #SBATCH --cpus-per-task={{job.cpu}}
+  #  #SBATCH --mem-per-cpu={{job.ram}}
+  #  #SBATCH --output {{script_log_path}}
+  #
+  #  set -euo pipefail
+  #
+  #  source "{{cast_path}}/settings/credentials.sh"
+  #  cd "{{engine_run_path}}"
+  #
+  #  set -x
+  #  srun ./engine run --single-job {{job.fw_id}}

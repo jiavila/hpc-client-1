@@ -71,7 +71,7 @@ singularity, it is recommended that you read--at a minimum--SingularityCE's [int
 - #### [How do I update the HPC Client to the latest release?](doc/faq_updating_hpc_client.md)
 - #### [How do I update my Flywheel engine?](doc/faq_updating_flywheel_engine.md)
 <details>
-   <summary>How do I set ram and cpu settings for my job?</summary>
+   <summary><b>How do I set ram and cpu settings for my job?</b></summary>
    Starting in version 2.0.0, the HPC Client will perform the following checks for setting
    ram and cpu settings:
   
@@ -91,4 +91,27 @@ singularity, it is recommended that you read--at a minimum--SingularityCE's [int
       | LSF                | 'rusage[mem=4000]' | '1' |
       | SGE                | '8G' | '4-8'   (sets CPU range) |
    
+</details>
+<details>
+    <summary><b>How do I use a custom script template for the jobs submitted to my HPC?</b></summary>
+    The HPC Client creates a shell script (`.sh`) for every job that is submitted to your HPC
+    through your scheduler (e.g., Slurm). It creates this using a default script template
+    for the type of scheduler on your HPC. If you would like to use a custom one, you can
+    do so by using the `script` variable in the `settings/cast.yml` file. It is not recommended
+    to edit the default templates in the source code (e.g., `src/cluster/slurmpy`)
+</details>
+<details>
+    <summary><b>How do I send my jobs to a specific partition on my HPC?</b></summary>
+    When you use a custom script template, you can set the partition(s) to which all
+    your jobs will be sent. For example, if your scheduler is Slurm, you can add the 
+    following line in your custom script template:
+
+```
+    #SBATCH --partition=<partition1_name>,<partition2_name>
+```
+Example:
+```
+    #SBATCH --partition=gpu-1,gpu-2
+```
+    
 </details>
