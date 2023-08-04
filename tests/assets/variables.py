@@ -1,8 +1,12 @@
+"""
+
+"""
+
 import os
 from copy import deepcopy
 import flywheel
 
-from src.util.frame import cmd_parser, prepare_config
+from src.util.frame import cmd_parser, prepare_config, load_yaml_settings
 from src.util.defn import FlywheelJob
 
 # -----------------------------------------------------------------------------
@@ -115,5 +119,20 @@ else:
         "Cannot determine correct absolute path to main project folder."
     )
 # print("args.folder: %s" % args.folder)
-config = prepare_config(args)
-config.sdk = flywheel.Client()
+
+# Create config fucntions to make varieties b/c deepcopy not working
+def create_config(args):
+
+    config = prepare_config(args)
+    # change cast so that it loads from tests/assets/cast.yml
+    config.cast = load_yaml_settings(os.path.join(args.folder, 'tests/assets/cast.yml')).cast
+    config.sdk = flywheel.Client()
+    return config
+
+
+config = create_config(args=args)
+
+# Create config where ram and cpu are empty
+config_no_ram_no_cpu = create_config(args=args)
+config_no_ram_no_cpu.cast.scheduler_cpu = ''
+config_no_ram_no_cpu.cast.scheduler_ram = ''

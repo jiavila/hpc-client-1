@@ -2,28 +2,50 @@ import pytest
 
 from src import cluster
 from src.util.frame import log
-from tests.assets.job_sample import jobs, config
+from tests.assets.variables import jobs, config, config_no_ram_no_cpu
 
 
 @pytest.mark.parametrize(
-    "test_job, scheduler_type, expected_values",
+    "test_job, scheduler_type, config_setting, expected_values",
     [
-        #(
+        (
             # Check slurm default ram and cpu settings from the formatting
-            # method. Actually, this can't be tested if the cast.yml file has
-            # the vars defined, so we have to rely on slurm tests for
-            # `src/cluster/slurm.format_scheduler_ram_and_cpu_settings()`
-            # jobs[0],
-            # "slurm",
-        #    {
-        #        "ram": '8G',
-        #        "cpu": '8'
-        #    }
-        #),
-        (  # Check slurm settings from the cast.yml file. the `settings` folder
-            # has to exists (i.e., `./process/setup.sh` must be run)
-            jobs[0], # This job doesn't have any values
+            # method.  This means that these are not set in the job and the
+            # cast.yml file
+            jobs[0],  # This job doesn't have any values
             "slurm",
+            config_no_ram_no_cpu,
+            {
+                "ram": '4G',
+                "cpu": '1'
+            }
+        ),
+        (
+            # Check lsf default ram and cpu settings from the formatting
+            # method.
+            jobs[0],  # This job doesn't have any values
+            "lsf",
+            config_no_ram_no_cpu,
+            {
+                "ram": 'rusage[mem=4000]',
+                "cpu": '1'
+            }
+        ),
+        (
+            # Check sge default ram and cpu settings from the formatting
+            # method.
+            jobs[0],  # This job doesn't have any values
+            "sge",
+            config_no_ram_no_cpu,
+            {
+                "ram": '4G',
+                "cpu": '4-8'
+            }
+        ),
+        (  # Check slurm settings from the test cast.yml file.
+            jobs[0],
+            "slurm",
+            config,
             {
                 "ram": '8G',
                 "cpu": '8'
@@ -31,9 +53,11 @@ from tests.assets.job_sample import jobs, config
         ),
         (
             # Check slurm settings from the Flywheel job. These will be empty
-            # strings, so we should get the default values again.
+            # strings, so we should get the default values from the cast.yml
+            # file again.
             jobs[1],
             "slurm",
+            config,
             {
                 "ram": '8G',
                 "cpu": '8'
@@ -44,6 +68,7 @@ from tests.assets.job_sample import jobs, config
             # be successfully gotten from the job, since they're defined there.
             jobs[2],
             "slurm",
+            config,
             {
                 "ram": '16G',
                 "cpu": '4'
@@ -54,6 +79,7 @@ from tests.assets.job_sample import jobs, config
             # be successfully gotten from the job, since they're defined there.
             jobs[3],
             "lsf",
+            config,
             {
                 "ram": 'rusage[mem=5000]',
                 "cpu": '2'
@@ -64,6 +90,7 @@ from tests.assets.job_sample import jobs, config
             # be successfully gotten from the job, since they're defined there.
             jobs[4],
             "sge",
+            config,
             {
                 "ram": '10G',
                 "cpu": '2-4'
@@ -72,12 +99,17 @@ from tests.assets.job_sample import jobs, config
     ]
 
 )
-def test_determine_ram_and_cpu_settings(test_job, scheduler_type, expected_values):
+def test_determine_ram_and_cpu_settings(
+    test_job,
+    scheduler_type,
+    config_setting,
+    expected_values
+):
     """
 
     """
     scheduler = cluster.from_scheduler(
-        config=config,
+        config=config_setting,
         log=log,
         scheduler_type=scheduler_type)
 
