@@ -94,17 +94,19 @@ singularity, it is recommended that you read--at a minimum--SingularityCE's [int
 </details>
 <details>
     <summary><b>How do I use a custom script template for the jobs submitted to my HPC?</b></summary>
-    The HPC Client creates a shell script (`.sh`) for every job that is submitted to your HPC
-    through your scheduler (e.g., Slurm). It creates this using a default script template
-    for the type of scheduler on your HPC. If you would like to use a custom one, you can
-    do so by using the `script` variable in the `settings/cast.yml` file. It is not recommended
-    to edit the default templates in the source code (e.g., `src/cluster/slurmpy`)
+    
+The HPC Client creates a shell script (`.sh`) for every job that is submitted to your HPC
+through your scheduler (e.g., Slurm). It creates this using a default script template
+for the type of scheduler on your HPC. If you would like to use a custom one, you can
+do so by using the `script` variable in the `settings/cast.yml` file. It is not recommended
+to edit the default templates in the source code (e.g., `src/cluster/slurmpy`)
 </details>
 <details>
     <summary><b>How do I send my jobs to a specific partition on my HPC?</b></summary>
-    When you use a custom script template, you can set the partition(s) to which all
-    your jobs will be sent. For example, if your scheduler is Slurm, you can add the 
-    following line in your custom script template:
+
+When you use a custom script template, you can set the partition(s) to which all
+your jobs will be sent. For example, if your scheduler is Slurm, you can add the 
+following line in your custom script template:
 
 ```
     #SBATCH --partition=<partition1_name>,<partition2_name>
@@ -114,4 +116,10 @@ Example:
     #SBATCH --partition=gpu-1,gpu-2
 ```
     
+</details>
+<details>
+    <summary><b>How do I check my version of the HPC Client?</b></summary>
+
+The version of the HPC Client is in `src/__init__.py` under the variable
+`__version__`. This was not available prior to 2.0.0. 
 </details>
