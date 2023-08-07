@@ -124,9 +124,54 @@ class Base(Common):
 		ram: str
 		cpu: str
 		"""
+		# Check legacy slurm ram and cpu settings
+		job = self._check_legacy_ram_and_cpu_settings(job=job)
+
+		# Set the dict variables we're checking
 		settings = {'scheduler_ram': '', 'scheduler_cpu': ''}
 		self._determine_scheduler_settings(job=job, settings=settings)
 		return self.format_scheduler_ram_and_cpu_settings(**settings)
+
+	def _check_legacy_ram_and_cpu_settings(self, job: flywheel.JobListEntry):
+		"""
+		Supports legacy ram and cpu settings for `slurm-ram` and `slurm-cpu`
+		by setting the value of these to `scheduler_ram` and `scheduler_cpu`.
+
+		This should be deprecated in next major release (3.0.0). Warn user
+		to update their gears to `scheduler_ram` and `scheduler_cpu`.
+
+		Returns
+		-------
+		job: flywheel.JobListEntry
+			Transformed
+
+		"""
+		# Check if these variables exist in the Flywheel job config. These
+		# appear as strings, even if unset ('')
+		if isinstance((job.config['config']).get('slurm-ram'), str) or \
+			isinstance((job.config['config']).get('slurm-cpu'), str):
+
+			# ensure that supported ones aren't also defined.
+			if isinstance((job.config['config']).get('scheduler_ram'), str) or \
+				isinstance((job.config['config']).get('scheduler_cpu'), str):
+				raise ValueError(
+					'Legacy variables `slurm-ram` and `slurm-cpu` cannot exist'
+					'with `scheduler_ram` and `scheduler_cpu`. Please remove '
+					'legacy settings.')
+
+			# transform legacy vars to supported ones
+			(job.config['config'])['scheduler_ram'] = (job.config['config']).get('slurm-ram')
+			(job.config['config'])['scheduler_cpu'] = (job.config['config']).get('slurm-cpu')
+
+			self.log.warning(
+				"Support for variables `slurm-ram` and `slurm-cpu` will be "
+				"deprecated in future releases. Please update these to"
+				"`scheduler_ram` and `scheduler_cpu`. You cannot have both "
+				"legacy and current names defined."
+			)
+			return job
+		else:
+			return job
 
 	def _determine_scheduler_settings(self, job: flywheel.JobListEntry, settings: dict):
 		"""

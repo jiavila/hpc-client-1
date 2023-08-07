@@ -95,6 +95,28 @@ from tests.assets.variables import jobs, config, config_no_ram_no_cpu
                 "ram": '10G',
                 "cpu": '2-4'
             }
+        ),
+        (
+            # Check empty ('') legacy slurm-ram and slurm-cpu settings from the
+            # Flywheel job. These should default to the slurm setting.
+            jobs[5],
+            "slurm",
+            config_no_ram_no_cpu,
+            {
+                "ram": '4G',
+                "cpu": '1'
+            }
+        ),
+        (
+            # Check defined legacy slurm-ram and slurm-cpu settings from the
+            # Flywheel job. These should be set to what the job configs.
+            jobs[6],
+            "slurm",
+            config_no_ram_no_cpu,
+            {
+                "ram": '12G',
+                "cpu": '6'
+            }
         )
     ]
 
@@ -105,9 +127,6 @@ def test_determine_ram_and_cpu_settings(
     config_setting,
     expected_values
 ):
-    """
-
-    """
     scheduler = cluster.from_scheduler(
         config=config_setting,
         log=log,

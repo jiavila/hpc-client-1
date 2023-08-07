@@ -97,6 +97,22 @@ job_ram_cpu_defined_sge['config']['config']['scheduler_cpu'] = '2-4'
 job_ram_cpu_defined_sge = FlywheelJob(**job_ram_cpu_defined_sge)
 jobs.append(job_ram_cpu_defined_sge)
 
+# Create a Flywheel job that has `slurm-ram` and `slurm` variables
+# undefined as ''
+job_slurm_ram_cpu_defined_empty = deepcopy(job_dict)
+job_slurm_ram_cpu_defined_empty['config']['config']['slurm-ram'] = ''
+job_slurm_ram_cpu_defined_empty['config']['config']['slurm-cpu'] = ''
+job_slurm_ram_cpu_defined_empty = FlywheelJob(**job_slurm_ram_cpu_defined_empty)
+jobs.append(job_slurm_ram_cpu_defined_empty)
+
+# Create a Flywheel job that has `slurm-ram` and `slurm-cpu` variables defined
+# for slurm
+job_slurm_ram_cpu_defined_slurm = deepcopy(job_dict)
+job_slurm_ram_cpu_defined_slurm['config']['config']['slurm-ram'] = '12G'
+job_slurm_ram_cpu_defined_slurm['config']['config']['slurm-cpu'] = '6'
+job_slurm_ram_cpu_defined_slurm = FlywheelJob(**job_slurm_ram_cpu_defined_slurm)
+jobs.append(job_slurm_ram_cpu_defined_slurm)
+
 # -----------------------------------------------------------------------------
 # Set up the config and log for the scheduler objects. All these are necessary
 # to instantiate a scheduler object (children of Base in
