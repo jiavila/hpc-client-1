@@ -124,7 +124,7 @@ class Base(Common):
 		ram: str
 		cpu: str
 		"""
-		# Check legacy slurm ram and cpu settings
+		# Update job config vars to support legacy ram and cpu settings
 		job = self._check_legacy_ram_and_cpu_settings(job=job)
 
 		# Set the dict variables we're checking
@@ -137,14 +137,12 @@ class Base(Common):
 		Supports legacy ram and cpu settings for `slurm-ram` and `slurm-cpu`
 		by setting the value of these to `scheduler_ram` and `scheduler_cpu`.
 
-		This should be deprecated in next major release (3.0.0). Warn user
+		These should be deprecated in next major release (3.0.0). Warn user
 		to update their gears to `scheduler_ram` and `scheduler_cpu`.
 
 		Returns
 		-------
 		job: flywheel.JobListEntry
-			Transformed
-
 		"""
 		# Check if these variables exist in the Flywheel job config. These
 		# appear as strings, even if unset ('')
@@ -167,7 +165,8 @@ class Base(Common):
 				"Support for variables `slurm-ram` and `slurm-cpu` will be "
 				"deprecated in future releases. Please update these to"
 				"`scheduler_ram` and `scheduler_cpu`. You cannot have both "
-				"legacy and current names defined."
+				"legacy and current names defined within the same gear job "
+				"config."
 			)
 			return job
 		else:
