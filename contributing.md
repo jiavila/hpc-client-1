@@ -33,6 +33,19 @@ below in the command line.
    pytest
    pre-commit install
    ```
+   
+### Pycharm
+If using Pycharm as your IDE, follow these additional instructions to reference the 
+python environment you just created.
+
+1. Update interpreter.
+    1. Copy path to python executable you printed with `which python`.
+    1. Go to `Settings -> Project -> Python Interpreter -> Settings Gear Icon -> Add... -> Virtualenv Environment -> Existing Environment -> ...` 
+    3. Paste the python executable path in the folders textbox.
+    2. Click `OK -> OK` to apply settings.
+2. Set source root so that module references work correctly.
+	1. Go to `Settings -> Project -> Project Structure`
+	2. Click `src` folder. Near the top, mark as `Sources` folder. Click OK.
 
 ## Dependency management
 
@@ -108,7 +121,7 @@ bugfix under the branch GEAR-999-my-bugfix. When you create a merge request agai
 
 ```markdown
 ## 0.2.2
-BUG:
+__FIX__:
 * Fixed my-bug, see [GEAR-999](https://flywheelio.atlassian.net/browse/GEAR-999)
 
 ```
