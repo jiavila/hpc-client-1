@@ -28,6 +28,13 @@ class Slurm(Base):
 
 		ram, cpu = self.determine_ram_and_cpu_settings(job=job)
 
+		# This setting can be modified to account for multiple GPUs per node
+		# For now, we will assume that a job will only request one GPU
+		if "gpu" in job.tags:
+			gpu = "1"
+		else:
+			gpu = None
+
 		return defn.JobSettings(
 			fw_id = str(job.id),
 
@@ -36,6 +43,7 @@ class Slurm(Base):
 
 			ram=ram,
 			cpu=cpu,
+			gpu=gpu,
 		)
 
 	def format_scheduler_ram_and_cpu_settings(

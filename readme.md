@@ -1,10 +1,10 @@
-# Flywheel HPC Client
+# Flywheel HPC Client <!-- omit in toc -->
 
 The HPC Client is a self-service solution that allows Flywheel jobs and gears to run on a High Performance Computing environment. Use on-premise hardware that's already available for highly-concurrent scientific workloads!
 
 ### Table of Contents
 - [Architecture](#architecture)
-- [HPC Types](#hpc-types)
+- [HPC types](#hpc-types)
 - [Minimum Requirements](#minimum-requirements)
 - [Getting Started](#getting-started)
 - [FAQs](#faqs)
@@ -70,6 +70,7 @@ singularity, it is recommended that you read--at a minimum--SingularityCE's [int
 ## FAQs
 - #### [How do I update the HPC Client to the latest release?](doc/faq_updating_hpc_client.md)
 - #### [How do I update my Flywheel engine?](doc/faq_updating_flywheel_engine.md)
+- #### [How do I use GPUs on my Slurm Cluster?](doc/faq_use_gpu_on_slurm_cluster.md)
 <details>
    <summary><b>How do I set ram and cpu settings for my job?</b></summary>
    Starting in version 2.0.0, the HPC Client will perform the following checks for setting

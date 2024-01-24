@@ -86,7 +86,7 @@ class JobSettings(BaseModel):
 	# The meaning of the following values vary by cluster type.
 	ram:        Optional[str]
 	cpu:        Optional[str]
-
+	gpu:        Optional[str] # 0 or more GPUs
 
 class ScriptTemplate(BaseModel):
 	"""
