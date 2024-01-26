@@ -5,6 +5,8 @@
 import os
 from copy import deepcopy
 import flywheel
+from pathlib import Path
+import argparse
 
 from src.util.frame import cmd_parser, prepare_config, load_yaml_settings
 from src.util.defn import FlywheelJob
@@ -122,9 +124,17 @@ jobs.append(job_slurm_ram_cpu_defined_slurm)
 os.environ['SCITRAN_RUNTIME_HOST'] = 'latest.sse.flywheel.io'
 os.environ['SCITRAN_RUNTIME_PORT'] = '443'
 os.environ['SCITRAN_CORE_DRONE_SECRET'] = ''
-args = cmd_parser().parse_args()
+
+# TODO: Create a temporary folder with settings and logs... symlink in here
+arg_dict = {
+    "folder": Path(__file__).parent,
+    "show_match": False,
+    "show_config": False,
+}
+args = argparse.Namespace(**arg_dict)
+# args = cmd_parser().parse_args()
 # Handle running the pytest from Pycharm's debugger or from the command line
-script_directory = os.getcwd()
+script_directory = Path(__file__).parent
 # print(script_directory)
 if os.path.split(script_directory)[-1] == "assets":
     args.folder = os.path.split(os.path.split(script_directory)[0])[0]  # manually set the base folder to the project, 2 folders up
