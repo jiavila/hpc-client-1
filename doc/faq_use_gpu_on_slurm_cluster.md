@@ -21,6 +21,9 @@ are examples of how a working configuration was set. If you don't see something 
 these settings on the nodes of the Slurm Cluster, it is likely that it is not set up
 for GPU execution.
 
+Detailed instructions for configuring Slurm can be found at [https://slurm.schedmd.com/](https://slurm.schedmd.com/).
+Including a [Slurm Configuration Tool](https://slurm.schedmd.com/configurator.html).
+
 #### slurm.conf
 
 The [`slurm.conf`](https://slurm.schedmd.com/slurm.conf.html) file is typically found in
