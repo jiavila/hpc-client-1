@@ -20,6 +20,7 @@ flake8-colors = "^0.1.9"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.4"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]

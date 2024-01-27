@@ -116,7 +116,7 @@ class Common:
         self.log.warn(msg + ' Dropping job.')
 
         # Write a long rejection to FW job logs
-        msg += '\nOnly white-listed users are allowed to run Gears on the HPC at this time.\nFor more information please contact' + self.config.cast.admin_contact_email
+        msg += '\nOnly white-listed users are allowed to run Gears on the HPC at this time.\nFor more information please contact ' + self.config.cast.admin_contact_email
 
         t = frame.timer()
 
@@ -213,68 +213,3 @@ class Common:
 
         self.log.info(msg)
 
-    def handle_all(self, start):
-        """
-        Main handler loop.
-        """
-
-        # Note: some functions are defined in BaseCluster:
-        #
-        #   determine_job_settings
-        #   determine_script_patch
-        #   handle_each
-        #   set_config_defaults
-        #
-        # As such, using a Common class directly is invalid.
-
-        # Load any cluster-specific settings
-        self.set_config_defaults()
-        self.confirm_config_defaults_loaded()
-
-        # Load candidate jobs into memory
-        self.log.debug('Looking for jobs to cast...')
-        t = frame.timer()
-        jobs = self.get_jobs()
-        ms = str(frame.elapsed_ms(t))
-        count = str(len(jobs))
-        self.log.debug('Found ' + count + ' jobs in ' + ms + ' ms.')
-
-        # Track results
-        jobs_launched = 0
-        jobs_skipped  = 0
-        jobs_rejected = 0
-
-        # Invoke cluster-specific logic
-        for job in jobs:
-
-            # Cast uses the existence of a script file
-            # to determine if a job should be cast.
-            script_path = self.determine_script_patch(job)
-
-            if os.path.exists(script_path):
-                jobs_skipped += 1
-                continue
-
-            if not self.check_whitelist(job):
-                jobs_rejected += 1
-                continue
-
-            # Collect information
-            script_log_path = self.determine_log_patch(job)
-            job_settings    = self.determine_job_settings(job)
-
-            # Prepare templating values
-            values = defn.ScriptTemplate(
-                job             = job_settings,
-                script_path     = script_path,
-                script_log_path = script_log_path,
-                cast_path       = self.config.paths.cast_path,
-                engine_run_path = self.config.paths.engine_run_path,
-            )
-
-            # Job is fit to cast
-            self.handle_each(job, values)
-            jobs_launched += 1
-
-        # Finish
-        self.report_results(start, jobs_launched, jobs_skipped, jobs_rejected)
