@@ -4,7 +4,7 @@ The HPC Client is a self-service solution that allows Flywheel jobs and gears to
 
 ### Table of Contents
 - [Architecture](#architecture)
-- [HPC types](#hpc-types)
+- [HPC Types](#hpc-types)
 - [Minimum Requirements](#minimum-requirements)
 - [Getting Started](#getting-started)
 - [FAQs](#faqs)
@@ -15,13 +15,13 @@ The HPC Client is a self-service solution that allows Flywheel jobs and gears to
 
 ![hpc-client-architecture 20210726](https://user-images.githubusercontent.com/75435671/127048966-af0582f7-10dc-451c-b955-4d5ab50eaf08.png)
 
-## HPC types
+## HPC Types
 
 The client, also called Cast, can support several queue mechanisms out of the box. Flywheel, however, currently only
 provides support for Slurm. If you require assistance with other schedulers, contact Flywheel.
 
 | Common name              | Code name |
-| -------------------------| ----------|
+| ------------------------ | --------- |
 | IBM spectrum LSF         | `lsf`     |
 | Oracle / Sun Grid Engine | `sge`     |
 | Slurm                    | `slurm`   |
@@ -86,11 +86,11 @@ singularity, it is recommended that you read--at a minimum--SingularityCE's [int
       scheduler type (e.g., Slurm). This is hardcoded and should not be changed.
    
       ### Formatting guide for variables 'scheduler_ram' and 'scheduler_cpu'
-      | scheduler/cluster  | RAM    | CPU    |
-      | -----------------  | ---    | ---    |
-      | Slurm              | '8G'   | '8'    |
-      | LSF                | 'rusage[mem=4000]' | '1' |
-      | SGE                | '8G' | '4-8'   (sets CPU range) |
+      | scheduler/cluster | RAM                | CPU                      |
+      | ----------------- | ------------------ | ------------------------ |
+      | Slurm             | '8G'               | '8'                      |
+      | LSF               | 'rusage[mem=4000]' | '1'                      |
+      | SGE               | '8G'               | '4-8'   (sets CPU range) |
    
 </details>
 <details>
