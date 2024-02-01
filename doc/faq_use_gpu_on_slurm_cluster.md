@@ -15,7 +15,7 @@ on a Slurm Cluster.
 
 ### Slurm Configuration
 
-To execute gears on GPU nodes of a Slurm cluster, the slurm must be configured
+To execute gears on GPU nodes of a Slurm cluster, Slurm must be configured
 correctly. Your system administrator will most likely configure these settings. Below
 are examples of how a working configuration was set. If you don't see something like
 these settings on the nodes of the Slurm Cluster, it is likely that it is not set up
