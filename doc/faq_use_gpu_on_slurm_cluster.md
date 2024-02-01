@@ -6,7 +6,7 @@
     - [gres.conf](#gresconf)
   - [Updating the fw-cast settings](#updating-the-fw-cast-settings)
 - [Gear Execution](#gear-execution)
-  - [Problems](#problems)
+  - [Potential Problems](#potential-problems)
 
 ## Configuration
 
@@ -35,10 +35,10 @@ NodeName=scien-hpc-gpu Gres=gpu:tesla:1 CPUs=4 Boards=1 SocketsPerBoard=1 CoresP
 ```
 
 The Generic RESource (GRES) flag (`Gres=gpu:tesla:1`) must be present to indicate the
-resource type ("gpu"), the resource class ("tesla"), and the number of resources present
+resource type (e.g. "gpu"), the resource class (e.g. "tesla"), and the number of resources present
 ("1"). Execution on more than one GPU per node has not yet been explored.
 
-The remainder of the node configuration (e.g. CPUs, RealMemory) can be interrogated by
+If desired, the remainder of the node configuration (e.g. CPUs, RealMemory) can be interrogated by
 the following command:
 
 ```bash
@@ -48,7 +48,7 @@ slurmd -C
 #### gres.conf
 
 The [Generic RESource (GRES)](https://slurm.schedmd.com/gres.conf.html) configuration,
-`gres.conf` needs to have an entry for each resource named in `slurm.conf`.
+`gres.conf`, needs to have an entry for each resource named in `slurm.conf`.
 
 ```conf
 NodeName=scien-hpc-gpu Name=gpu Type=tesla File=/dev/nvidia0
@@ -87,7 +87,7 @@ With the rest of the workflow configured, adding a `gpu` tag (in addition to the
 `hpc` tag) to the launch of the gear will schedule a GPU to execute the gear on the
 Slurm cluster.
 
-### Problems
+### Potential Problems
 
 - Without the `gpu` tag present on gear launch any node meeting the criteria will be
   scheduled.
