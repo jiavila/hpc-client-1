@@ -5,6 +5,7 @@
     - [slurm.conf](#slurmconf)
     - [gres.conf](#gresconf)
   - [Updating the fw-cast settings](#updating-the-fw-cast-settings)
+  - [Compute Engine](#compute-engine)
 - [Gear Execution](#gear-execution)
   - [Potential Problems](#potential-problems)
 
@@ -81,11 +82,23 @@ shown below.
    srun ./engine run --single-job {{job.fw_id}}
 ```
 
+### Compute Engine
+
+Ensure that you have a Compute Engine installed that has been compiled after 2024-02-01.
+Please contact Flywheel staff to get an updated Flywheel engine.
+
+After receiving the updated Flywheel engine, install it as per the instructions found
+[here](faq_updating_flywheel_engine.md).
+
 ## Gear Execution
 
 With the rest of the workflow configured, adding a `gpu` tag (in addition to the
 `hpc` tag) to the launch of the gear will schedule a GPU to execute the gear on the
 Slurm cluster.
+
+Note: If your site already uses the `gpu` tag for launching another engine on Flywheel
+and those jobs are not routed through the HPC Hold engine, please contact Flywheel
+staff.
 
 ### Potential Problems
 
