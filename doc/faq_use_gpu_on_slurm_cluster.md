@@ -96,6 +96,10 @@ With the rest of the workflow configured, adding a `gpu` tag (in addition to the
 `hpc` tag) to the launch of the gear will schedule a GPU to execute the gear on the
 Slurm cluster.
 
+Note: If your site already uses the `gpu` tag for launching another engine on Flywheel
+and those jobs are not routed through the HPC Hold engine, please contact Flywheel
+staff.
+
 ### Potential Problems
 
 - Without the `gpu` tag present on gear launch any node meeting the criteria will be
