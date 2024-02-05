@@ -55,10 +55,14 @@ def prepare_search(cast_config):
 
 
 def load_user_id_whitelist(fw):
-	"""
-	Load user IDs from a FW-group-defined whitelist.
-	"""
+	"""Load user IDs from a FW-group-defined whitelist.
 
+	Args:
+		fw (flywheel.Client): Flywheel client instance.
+
+	Returns:
+		list: A list of user IDs with permissions to run jobs on the HPC.
+	"""	
 	# Group name is intentionally not configurable.
 	group_name  = 'hpc-whitelist'
 	group_perms = fw.get_group(group_name)['permissions']
